@@ -211,6 +211,11 @@ export default function viteReact(opts: Options = {}): PluginOption[] {
         parserPlugins.push('typescript')
       }
 
+      // eslint-disable-next-line regexp/no-unused-capturing-group
+      if (/(ts|js)x$/.test(id) && !isProduction) {
+        code = `const Vite____ = () => {};` + code
+      }
+
       const result = await babel.transformAsync(code, {
         ...babelOptions,
         root: projectRoot,
